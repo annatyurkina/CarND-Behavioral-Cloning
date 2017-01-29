@@ -58,13 +58,11 @@ def batch_generator(X, y):
 	first_time = True
 	example_count = len(X)
 	while True:
-		X, y = shuffle(X, y)
 		for offset in range(0, example_count, BATCH_SIZE):
 			batch_x, batch_y = X[offset:min(offset+BATCH_SIZE, example_count)], y[offset:min(offset+BATCH_SIZE, example_count)]        
 			images, labels = [], []
 			for i in range(0, len(batch_x)):
 				image = mpimg.imread('data/' + batch_x[i])
-				#image = cv2.resize(image, (320, 240))  
 				# if(randint(0,1) > 0):
 				# 	image = cv2.flip(image, 1)
 				# 	batch_y[i] = -batch_y[i]
@@ -99,7 +97,8 @@ def get_model():
 	model.add(Dense(100))
 	model.add(Dense(50))
 	model.add(Dense(10))
-	model.add(Dropout(.6))
+	model.add(Dropout(.5))
+	model.add(Activation('sigmoid'))
 	model.add(Dense(1))
 	model.compile(optimizer="adam", loss="mse")
 	return model
