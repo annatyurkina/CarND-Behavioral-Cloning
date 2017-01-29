@@ -64,7 +64,7 @@ def batch_generator(X, y):
 			images, labels = [], []
 			for i in range(0, len(batch_x)):
 				image = mpimg.imread('data/' + batch_x[i])
-				image = cv2.resize(image, (320, 240))  
+				#image = cv2.resize(image, (320, 240))  
 				# if(randint(0,1) > 0):
 				# 	image = cv2.flip(image, 1)
 				# 	batch_y[i] = -batch_y[i]
@@ -81,7 +81,7 @@ def batch_generator(X, y):
 
 
 def get_model():
-	ch, row, col = 240, 320, 3  # camera format
+	ch, row, col = 160, 320, 3  # camera format
 
 	model = Sequential()
 	model.add(Lambda(lambda x: x/127.5 - 1., input_shape=(ch, row, col), output_shape=(ch, row, col)))
