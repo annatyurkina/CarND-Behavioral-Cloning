@@ -22,12 +22,13 @@ def load_image_paths_and_steering():
 			if(first_row):
 				first_row = False
 				continue
+			steering_lable = float(row[3].strip()
 			image_paths.append(row[0].strip())
-			steering.append(row[3].strip()) 
+			steering.append(steering_lable) 
 			image_paths.append(row[1].strip())
-			steering.append(float(row[3].strip()) + .15) 
+			steering.append(steering_lable + .25) 
 			image_paths.append(row[2].strip())
-			steering.append(float(row[3].strip()) - .15) 
+			steering.append(steering_lable - .25) 
 
 	return (image_paths, steering)
 
