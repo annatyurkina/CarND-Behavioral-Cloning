@@ -4,6 +4,7 @@ import json
 import argparse
 import matplotlib.image as mpimg
 import numpy as np
+from random import randint
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
@@ -24,12 +25,24 @@ def load_image_paths_and_steering():
 				first_row = False
 				continue
 			steering_lable = float(row[3].strip())
+			augmented_steering_lable = 0.0
 			image_paths.append(row[0].strip())
 			steering.append(steering_lable) 
 			image_paths.append(row[1].strip())
 			steering.append(steering_lable + .25) 
 			image_paths.append(row[2].strip())
 			steering.append(steering_lable - .25) 
+			if(steering_lable > .25):
+				augmented_steering_lable = steering_lable + randint(1,15)/100
+			if(steering_lable < -.25):
+				augmented_steering_lable = steering_lable - randint(1,15)/100
+			if(augmented_steering_lable != 0.0):
+				image_paths.append(row[0].strip())
+				steering.append(augmented_steering_lable) 
+				image_paths.append(row[1].strip())
+				steering.append(augmented_steering_lable + .25) 
+				image_paths.append(row[2].strip())
+				steering.append(augmented_steering_lable - .25) 
 
 	return (image_paths, steering)
 
