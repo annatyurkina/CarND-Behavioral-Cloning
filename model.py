@@ -2,6 +2,7 @@ import os
 import csv
 import json
 import argparse
+import cv2
 import matplotlib.image as mpimg
 import numpy as np
 from random import randint
@@ -32,17 +33,17 @@ def load_image_paths_and_steering():
 			steering.append(steering_lable + .25) 
 			image_paths.append(row[2].strip())
 			steering.append(steering_lable - .25) 
-			if(steering_lable > .1):
-				augmented_steering_lable = steering_lable + randint(1,10)/100
-			if(steering_lable < -.1):
-				augmented_steering_lable = steering_lable - randint(1,10)/100
-			if(abs(augmented_steering_lable) > .1):
-				image_paths.append(row[0].strip())
-				steering.append(augmented_steering_lable) 
-				image_paths.append(row[1].strip())
-				steering.append(augmented_steering_lable + .25) 
-				image_paths.append(row[2].strip())
-				steering.append(augmented_steering_lable - .25) 
+			# if(steering_lable > .1):
+			# 	augmented_steering_lable = steering_lable + randint(1,10)/100
+			# if(steering_lable < -.1):
+			# 	augmented_steering_lable = steering_lable - randint(1,10)/100
+			# if(abs(augmented_steering_lable) > .1):
+			# 	image_paths.append(row[0].strip())
+			# 	steering.append(augmented_steering_lable) 
+			# 	image_paths.append(row[1].strip())
+			# 	steering.append(augmented_steering_lable + .25) 
+			# 	image_paths.append(row[2].strip())
+			# 	steering.append(augmented_steering_lable - .25) 
 
 	return (image_paths, steering)
 
@@ -63,6 +64,9 @@ def batch_generator(X, y):
 			images, labels = [], []
 			for i in range(0, len(batch_x)):
 				image = mpimg.imread('data/' + batch_x[i])
+				if(randint(0,1) > 0):
+					image = cv2.flip(image, 1)
+					batch_y[i] = -batch_y[i]
 				images.append(image)
 				labels.append(batch_y[i])
 
