@@ -22,7 +22,7 @@ def load_image_paths_and_steering():
 			if(first_row):
 				first_row = False
 				continue
-			steering_lable = float(row[3].strip()
+			steering_lable = float(row[3].strip())
 			image_paths.append(row[0].strip())
 			steering.append(steering_lable) 
 			image_paths.append(row[1].strip())

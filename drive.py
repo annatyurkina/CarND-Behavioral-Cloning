@@ -15,7 +15,7 @@ from io import BytesIO
 from keras.models import model_from_json
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array
 
-# Fix error with Keras and TensorFlow
+# Fix error with Keras and TensorFlow1
 import tensorflow as tf
 tf.python.control_flow_ops = tf
 
