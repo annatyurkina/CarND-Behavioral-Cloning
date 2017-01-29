@@ -32,11 +32,11 @@ def load_image_paths_and_steering():
 			steering.append(steering_lable + .25) 
 			image_paths.append(row[2].strip())
 			steering.append(steering_lable - .25) 
-			if(steering_lable > .25):
-				augmented_steering_lable = steering_lable + randint(1,15)/100
-			if(steering_lable < -.25):
-				augmented_steering_lable = steering_lable - randint(1,15)/100
-			if(augmented_steering_lable != 0.0):
+			if(steering_lable > .1):
+				augmented_steering_lable = steering_lable + randint(1,10)/100
+			if(steering_lable < -.1):
+				augmented_steering_lable = steering_lable - randint(1,10)/100
+			if(abs(augmented_steering_lable) > .1):
 				image_paths.append(row[0].strip())
 				steering.append(augmented_steering_lable) 
 				image_paths.append(row[1].strip())
