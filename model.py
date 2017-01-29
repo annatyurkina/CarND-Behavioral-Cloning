@@ -1,6 +1,7 @@
 import os
 import csv
 import json
+import argparse
 import matplotlib.image as mpimg
 import numpy as np
 from sklearn.utils import shuffle
@@ -88,6 +89,14 @@ def get_model():
 
 
 if __name__ == "__main__":
+
+	parser = argparse.ArgumentParser(description='Behavior Cloning')
+	parser.add_argument('--batch', type=int, default=128, help='Batch Size')
+	parser.add_argument('--epoch', type=int, default=2, help='Number of Epochs')
+	args = parser.parse_args()
+	BATCH_SIZE = args.batch
+	NUMBER_EPOCHS = args.epoch
+
 	image_paths, steering = load_image_paths_and_steering()
 	X_train, X_validation, y_train, y_validation = train_validation_split(np.array(image_paths), np.array(steering))
 	print(len(X_train))
