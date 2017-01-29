@@ -29,11 +29,11 @@ def load_image_paths_and_steering():
 			augmented_steering_lable = 0.0
 			image_paths.append(row[0].strip())
 			steering.append(steering_lable) 
-			if(abs(steering_lable) > .1):
-				image_paths.append(row[1].strip())
-				steering.append(steering_lable + .25) 
-				image_paths.append(row[2].strip())
-				steering.append(steering_lable - .25) 
+			#if(abs(steering_lable) > .1):
+			image_paths.append(row[1].strip())
+			steering.append(steering_lable + .25) 
+			image_paths.append(row[2].strip())
+			steering.append(steering_lable - .25) 
 			# if(steering_lable > .1):
 			# 	augmented_steering_lable = steering_lable + randint(1,10)/100
 			# if(steering_lable < -.1):
@@ -58,13 +58,13 @@ def batch_generator(X, y):
 	first_time = True
 	example_count = len(X)
 	while True:
+		X, y = shuffle(X, y)
 		for offset in range(0, example_count, BATCH_SIZE):
-			print(offset)
-			print(min(offset+BATCH_SIZE, example_count))
 			batch_x, batch_y = X[offset:min(offset+BATCH_SIZE, example_count)], y[offset:min(offset+BATCH_SIZE, example_count)]        
 			images, labels = [], []
 			for i in range(0, len(batch_x)):
 				image = mpimg.imread('data/' + batch_x[i])
+				image = cv2.resize(image, (320, 240))  
 				# if(randint(0,1) > 0):
 				# 	image = cv2.flip(image, 1)
 				# 	batch_y[i] = -batch_y[i]
@@ -81,7 +81,7 @@ def batch_generator(X, y):
 
 
 def get_model():
-	ch, row, col = 160, 320, 3  # camera format
+	ch, row, col = 240, 320, 3  # camera format
 
 	model = Sequential()
 	model.add(Lambda(lambda x: x/127.5 - 1., input_shape=(ch, row, col), output_shape=(ch, row, col)))
@@ -99,8 +99,7 @@ def get_model():
 	model.add(Dense(100))
 	model.add(Dense(50))
 	model.add(Dense(10))
-	model.add(Dropout(.5))
-	model.add(Activation('sigmoid'))
+	model.add(Dropout(.6))
 	model.add(Dense(1))
 	model.compile(optimizer="adam", loss="mse")
 	return model
