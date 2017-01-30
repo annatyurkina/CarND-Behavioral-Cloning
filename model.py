@@ -3,6 +3,7 @@ import csv
 import json
 import argparse
 import cv2
+import datetime
 import matplotlib.image as mpimg
 import numpy as np
 from random import randint
@@ -29,11 +30,22 @@ def load_image_paths_and_steering():
 			augmented_steering_lable = 0.0
 			image_paths.append(row[0].strip())
 			steering.append(steering_lable) 
-			#if(abs(steering_lable) > .1):
-			image_paths.append(row[1].strip())
-			steering.append(steering_lable + .25) 
-			image_paths.append(row[2].strip())
-			steering.append(steering_lable - .25) 
+			if(abs(steering_lable) > .1):
+				image_paths.append(row[1].strip())
+				steering.append(steering_lable + .25) 
+				image_paths.append(row[2].strip())
+				steering.append(steering_lable - .25) 
+			if(steering_lable > .1):
+				augmented_steering_lable = steering_lable + randint(1,10)/100
+			if(steering_lable < -.1):
+				augmented_steering_lable = steering_lable - randint(1,10)/100
+			if(abs(augmented_steering_lable) > .1):
+				image_paths.append(row[0].strip())
+				steering.append(augmented_steering_lable) 
+				image_paths.append(row[1].strip())
+				steering.append(augmented_steering_lable + .25) 
+				image_paths.append(row[2].strip())
+				steering.append(augmented_steering_lable - .25) 
 			# if(steering_lable > .1):
 			# 	augmented_steering_lable = steering_lable + randint(1,10)/100
 			# if(steering_lable < -.1):
@@ -71,7 +83,7 @@ def batch_generator(X, y):
 
 			X_batch = np.array(images)
 			if(first_time):
-				first_time = True
+				first_time = False
 				print(X_batch.shape)
 			#X_batch = np.divide(np.add(X_batch, -128),128)
 			y_batch = np.array(labels)
@@ -98,7 +110,7 @@ def get_model():
 	model.add(Dense(50))
 	model.add(Dense(10))
 	model.add(Dropout(.5))
-	model.add(Activation('sigmoid'))
+	#model.add(Activation('sigmoid'))
 	model.add(Dense(1))
 	model.compile(optimizer="adam", loss="mse")
 	return model
@@ -115,7 +127,8 @@ if __name__ == "__main__":
 
 	image_paths, steering = load_image_paths_and_steering()
 	X_train, X_validation, y_train, y_validation = train_validation_split(np.array(image_paths), np.array(steering))
-	print(len(X_train))
+	print(len(X_train))	
+	print(datetime.datetime.utcnow())
 
 	model = get_model()
 	model.fit_generator(
@@ -125,6 +138,7 @@ if __name__ == "__main__":
 		validation_data=batch_generator(X_validation, y_validation),
 		nb_val_samples=len(X_validation)
 		)
+	print(datetime.datetime.utcnow())
 	print("Saving model weights and configuration file.")
 
 	if not os.path.exists("output"):
