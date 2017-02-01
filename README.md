@@ -6,12 +6,19 @@ The purpose of the model is to be able to pass first track in the Udacity simula
 
 Udacity provided data is used as a starting point for training the model. The main drawback of provided data is it being unbalanced with bias towards going straight. Provided model addresses this in multiple ways. We take all center camera images with steering untouched and all left and right camera images altered by 0.25 and -0.25 respectively to adjust to cameras shift. Then we try to make the data more balanced by introducing more examples with larger steering. For non-zero steering we apply steering augmentation by 0.1, 0.15 or -0.1,-0.15 depending on angle sign for the center camera, 0.30, 0.35 for the left camera and -0.30, -0.35 for the right camera. Then all augmented data is appended to our training set. 
 
-Training set is shuffled before and after validation split and reshuffled in every epoch.
-
 <p align="center">
   <img src="data/IMG/left_2016_12_01_13_30_48_287.jpg" width="30%"/>
   <img src="data/IMG/center_2016_12_01_13_30_48_287.jpg" width="30%"/>
   <img src="data/IMG/right_2016_12_01_13_30_48_287.jpg" width="30%"/>
+</p>
+
+Training set is shuffled before and after validation split and reshuffled in every epoch.
+
+Validation and training set histograms after adding Augmentation and reshuffle:
+
+<p align="center">
+  <img src="hist_validation.jpg" width="45%"/>
+  <img src="hist_training.jpg" width="45%"/>
 </p>
 
 ## Model Fitting
