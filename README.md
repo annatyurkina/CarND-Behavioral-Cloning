@@ -17,8 +17,8 @@ Training set is shuffled before and after validation split and reshuffled in eve
 Validation and training set histograms after adding Augmentation and reshuffle:
 
 <p align="center">
-  <img src="hists/hist_validation.jpg" width="45%"/>
-  <img src="hists/hist_training.jpg" width="45%"/>
+  <img src="hists/hist_validation.jpeg" width="45%"/>
+  <img src="hists/hist_training.jpeg" width="45%"/>
 </p>
 
 ## Model Fitting
