@@ -4,9 +4,9 @@ The purpose of the model is to be able to pass first track in the Udacity simula
 
 ## Image Preprocessing
 
-Udacity provided data is used as a starting point for training the model. We take all center camera images with steering untouched. Then we try to make the data more balanced by introducing more examples with larger steering. For steering > 0.1 we also take left and right camera images. To adjust left and right camera shift, steering is increased by 0.25 and -0.25 respectively. For steering > 0.1 we also apply steering augmentation by random value up to 0.1 for all cameras and append augmented data to our training set. 
+Udacity provided data is used as a starting point for training the model. The main drawback of provided data is it being unbalanced with bias towards going straight. Provided model addresses this in multiple ways. We take all center camera images with steering untouched and all left and right camera images altered by 0.25 and -0.25 respectively to adjust to cameras shift. Then we try to make the data more balanced by introducing more examples with larger steering. For non-zero steering we apply steering augmentation by 0.1, 0.15 or -0.1,-0.15 depending on angle sign for the center camera, 0.30, 0.35 for the left camera and -0.30, -0.35 for the right camera. Then all augmented data is appended to our training set. 
 
-Training set is shuffled before validation split and reshuffled in every epoch.
+Training set is shuffled before and after validation split and reshuffled in every epoch.
 
 <p align="center">
   <img src="data/IMG/left_2016_12_01_13_30_48_287.jpg" width="30%"/>
