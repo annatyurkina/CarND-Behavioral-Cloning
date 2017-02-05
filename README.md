@@ -40,14 +40,14 @@ Images preprocessing addresses this in multiple ways. We take all center camera 
 
 Then we try to make the data more balanced by introducing more examples with larger steering. For non-zero steering we apply steering augmentation by 0.1, 0.15 or -0.1,-0.15 depending on angle sign for the center camera, 0.30, 0.35 for the left camera and -0.30, -0.35 for the right camera. Then all augmented data is appended to our training set. 
 
-->*An example of the left camera simulator image:*<-<br /> 
-->![An example of the left camera simulator image](left_2016_12_01_13_30_48_287.jpg)<-
+*An example of the left camera simulator image:*<br /> 
+<div style="text-align:center"><img src ="left_2016_12_01_13_30_48_287.jpg" /></div>
 
-->*An example of the center camera simulator image:*<-<br /> 
-->![An example of the center camera simulator image](center_2016_12_01_13_30_48_287.jpg)<-
+*An example of the center camera simulator image:*<br /> 
+<div style="text-align:center"><img src ="center_2016_12_01_13_30_48_287.jpg" /></div>
 
-->*An example of the right camera simulator image:*<-<br />
-->![An example of the right camera simulator image](right_2016_12_01_13_30_48_287.jpg)<-
+*An example of the right camera simulator image:*<br />
+<div style="text-align:center"><img src ="right_2016_12_01_13_30_48_287.jpg" /></div>
 
 Training set is shuffled before and after validation split and reshuffled in every epoch.
 
